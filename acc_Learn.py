@@ -28,18 +28,30 @@ def helper_PairToPair(a):
 def tagMap(tagList_Big):
     return map(helper_PairToPair,tagList_Big)
     
-        
+#if 'n' <- 'NOUN', 'a' <- 'ADJ', 'r' <- 'ADV'; else 'e'
+def type_string(type0):
+    if type0.find('NOUN') !=-1:
+        return 'n'
+    elif type0.find('ADV') !=-1:
+        return 'r'
+    elif type0.find('ADJ') !=-1:
+        return 'a'
+    else:
+        return 'e'
 
 #a simple function to write red
 def write_red(f, str_):
     f.write('<b style="color:#ff0000">%s</b>' % str_)
 
 #detect the similarity of two strings by looping all the words and return the maximum path_similarity
-def word_pair(word1_input,word2_env):
+def word_pair(word1_input,word2_env,type1):
     acc=0
-    for i in wordnet.synsets(word1_input):
+    setS=wordnet.synsets(word1_input,type_string(type1))
+    if len(setS)>15:
+        return 0
+    for i in setS:
         for j in wordnet.synsets(word2_env):
-            sim= i.path_similarity(j)
+            sim= i.wup_similarity(j)
             if sim>acc:
                 acc=sim
     return acc
@@ -52,8 +64,8 @@ def colorize(file_to,list_imp,list_wordPair):
             flag=0
             acc0=0
             for j in list_imp:
-                w_index=word_pair(i[0],j)
-                if w_index>0.1 and w_index>acc0:
+                w_index=word_pair(i[0],j,i[1])
+                if w_index>0.4 and w_index>acc0:
                     flag=1
             if flag==1:
                 write_red(file_to,i[0])
@@ -66,11 +78,10 @@ def colorize(file_to,list_imp,list_wordPair):
             file_to.write(' ')
         
 #fake data
-data_env="finance"
-data1="""Finance is a field that deals with the allocation of assets and liabilities over time under conditions of certainty and
-uncertainty. Finance also applies and uses the theories of economics at some level. Finance can also be defined as the science of money management. A key point in finance is the time value of money, which states that p
-urchasing power of one unit of currency can vary over time. Finance aims to price assets based on their risk level and their expected rate of return. Finance can be broken into three different sub-categories: public finance,
-corporate finance and personal finance."""
+data_env="computational neuroscience"
+data1="""The term "computational neuroscience" was introduced by Eric L. Schwartz, who organized a conference, held in 1985 in Carmel, California, at the request of the Systems Development Foundation to provide a summary of the current status of a field which until that point was referred to by a variety of names, such as neural modeling, brain theory and neural networks. The proceedings of this definitional meeting were published in 1990 as the book Computational Neuroscience.[2] The first open international meeting focused on Computational Neuroscience was organized by James M. Bower and John Miller in San Francisco, California in 1989 and has continued each year since as the annual CNS meeting [3] The first graduate educational program in computational neuroscience was organized as the Computational and Neural Systems Ph.D. program at the California Institute of Technology in 1985.
+The early historical roots of the field can be traced to the work of people such as Louis Lapicque, Hodgkin & Huxley, Hubel & Wiesel, and David Marr, to name a few. Lapicque introduced the integrate and fire model of the neuron in a seminal article published in 1907;[4] this model is still one of the most popular models in computational neuroscience for both cellular and neural networks studies, as well as in mathematical neuroscience because of its simplicity (see the recent review article published recently for the centenary of Lapicque's original paper).[5] About 40 years later, Hodgkin & Huxley developed the voltage clamp and created the first biophysical model of the action potential. Hubel & Wiesel discovered that neurons in the primary visual cortex, the first cortical area to process information coming from the retina, have oriented receptive fields and are organized in columns.[6] David Marr's work focused on the interactions between neurons, suggesting computational approaches to the study of how functional groups of neurons within the hippocampus and neocortex interact, store, process, and transmit information. Computational modeling of biophysically realistic neurons and dendrites began with the work of Wilfrid Rall, with the first multicompartmental model using cable
+theory."""
 
 
 #fake main
