@@ -6,6 +6,8 @@ from nltk.corpus import wordnet
 #setting
 file_OUTPUT="file_out.html"
 
+#Next Step: WordNet -> Wikipedia
+
 
 ##helper_functions
 #Input is a sentence(a long string), output word tuple with pos_tag in 2nd position 
