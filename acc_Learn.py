@@ -3,6 +3,7 @@ import nltk
 from nltk import tokenize
 from nltk.corpus import wordnet
 
+
 #setting
 file_OUTPUT="file_out.html"
 
