@@ -69,6 +69,7 @@ def phraseElevation(cur_set,pot_set,dict0,phrase0):
     else:
         return
 
+#deprecated
 #clean the dict0 set
 def clean_dict(dict0,num):
     output={}
@@ -91,15 +92,21 @@ def write_red(f, string0):
 
 
 #fake data
-data_env=["computational","neuroscience"]
-data1="""The term "computational neuroscience" was introduced by Eric L. Schwartz, who organized a conference, held in 1985 in Carmel, California, at the request of the Systems Development Foundation to provide a summary of the current status of a field which until that point was referred to by a variety of names, such as neural modeling, brain theory and neural networks. The proceedings of this definitional meeting were published in 1990 as the book Computational Neuroscience.[2] The first open international meeting focused on Computational Neuroscience was organized by James M. Bower and John Miller in San Francisco, California in 1989 and has continued each year since as the annual CNS meeting [3] The first graduate educational program in computational neuroscience was organized as the Computational and Neural Systems Ph.D. program at the California Institute of Technology in 1985.
-The early historical roots of the field can be traced to the work of people such as Louis Lapicque, Hodgkin & Huxley, Hubel & Wiesel, and David Marr, to name a few. Lapicque introduced the integrate and fire model of the neuron in a seminal article published in 1907;[4] this model is still one of the most popular models in computational neuroscience for both cellular and neural networks studies, as well as in mathematical neuroscience because of its simplicity (see the recent review article published recently for the centenary of Lapicque's original paper).[5] About 40 years later, Hodgkin & Huxley developed the voltage clamp and created the first biophysical model of the action potential. Hubel & Wiesel discovered that neurons in the primary visual cortex, the first cortical area to process information coming from the retina, have oriented receptive fields and are organized in columns.[6] David Marr's work focused on the interactions between neurons, suggesting computational approaches to the study of how functional groups of neurons within the hippocampus and neocortex interact, store, process, and transmit information. Computational modeling of biophysically realistic neurons and dendrites began with the work of Wilfrid Rall, with the first multicompartmental model using cable
-theory."""
+data_env=["oxygen"]
+data1="""
+Oxygen is a chemical element with symbol O and atomic number 8. It is a member of the chalcogen group on the periodic table and is a highly reactive nonmetallic element and oxidizing agent that readily forms compounds (notably oxides) with most elements.[1] By mass, oxygen is the third-most abundant element in the universe, after hydrogen and helium.[2] At STP, two atoms of the element bind to form dioxygen, a diatomic gas that is colorless, odorless, and tasteless, with the formula O
+2.
+
+Many major classes of organic molecules in living organisms, such as proteins, nucleic acids, carbohydrates, and fats, contain oxygen, as do the major inorganic compounds that are constituents of animal shells, teeth, and bone. Most of the mass of living organisms is oxygen as it is a part of water, the major constituent of lifeforms (for example, about two-thirds of human body mass). Elemental oxygen is produced by cyanobacteria, algae and plants, and is used in cellular respiration for all complex life. Oxygen is toxic to obligately anaerobic organisms, which were the dominant form of early life on Earth until O
+2 began to accumulate in the atmosphere. Free elemental O
+2 only began to accumulate in the atmosphere about 2.5 billion years ago during the Great Oxygenation Event, about a billion years after the first appearance of these organisms.[3][4] Diatomic oxygen gas constitutes 20.8% of the volume of air.[5] Oxygen is the most abundant element by mass in the Earth's crust as part of oxide compounds such as silicon dioxide, making up almost half of the crust's mass.[6]
+
+Oxygen is an important part of the atmosphere, and is necessary to sustain most terrestrial life as it is used in respiration. However, it is too chemically reactive to remain a free element in Earth's atmosphere without being continuously replenished by the photosynthetic action of living organisms, which use the energy of sunlight to produce elemental oxygen from water. Another form (allotrope) of oxygen, ozone (O
+3), strongly absorbs UVB radiation and consequently the high-altitude ozone layer helps protect the biosphere from ultraviolet radiation, but is a pollutant near the surface where it is a by-product of smog. At even higher low earth orbit altitudes, atomic oxygen is a significant presence and a cause of erosion for spacecraft.[7] Oxygen is produced industrially by fractional distillation of liquefied air, use of zeolites with pressure-cycling to concentrate oxygen from air, electrolysis of water and other means. Uses of elemental oxygen include the production of steel, plastics and textiles, brazing, welding and cutting of steels and other metals, rocket propellant, oxygen therapy and life support systems in aircraft, submarines, spaceflight and diving.
+
+"""
 
 if __name__=="__main__":
-    #stub_pre
-    file_out=open(file_OUTPUT,'w')
-    file_out.write("<html>")
     #initialize the dictionary
     dict_WP={}
     #initialize current set and potential set
@@ -118,8 +125,7 @@ if __name__=="__main__":
     #dict_WP=clean_dict(dict_WP,5)
     sentList=tokenize.sent_tokenize(data1)
     #main part
-    #first loop
-    #asd=0#test
+    ##first loop##
     for s in sentList:
         wordListAlpha=nltk.word_tokenize(s)
         #a list of pair of (word,type)
@@ -141,9 +147,49 @@ if __name__=="__main__":
     
     print 'cur_set is '+`current_set`
     print 'pot_set length is '+`len(potential_set)`
-    #print 'dict0 is '+`dict_WP`
-    #second loop
+    print 'starting second loop'
+    ##second loop##
+    #initialize a new index dictionary
+    dict_index={}
+    #convert cur_set to index dictionary
+    #for each phrase in cur_set
+    for ph in current_set:
+        #decompose into list of words
+        wordList=nltk.word_tokenize(ph)
+        #for each word
+        for w1 in wordList:
+            #if the word not yet in the dictionary, add this key
+            if dict_index.get(w1)==None:
+                dict_index[w1]=[]
+        #append the phrase to the value of words anyway
+        dict_index[w1].append(ph)
+    #writing preparation
+    file_out=open(file_OUTPUT,'w')
+    file_out.write("<html>")
+    #for each sentence
+    for s in sentList:
+        file_out.write("<p>")
+        wordList=nltk.word_tokenize(s)  
+        #for each word in sentence
+        for w1 in wordList:
+            #if the word is in index dictionary get all the corresponding phrases
+            if not dict_index.get(w1) ==None:
+                phList=dict_index[w1]
+                flag=False
+                for ph in phList:
+                    if ph.lower() in s.lower():
+                        flag=True
+                if flag:
+                    write_red(file_out,w1)
+                    file_out.write(' ')
+                else:
+                    file_out.write(w1)
+                    file_out.write(' ')
+            #if any of the phrase in a substring of this sentence, then color it
+            else:
+                file_out.write(w1)
+                file_out.write(' ')
+        file_out.write("</p>")
     
-    
-    
+    file_out.write("</html>")
     file_out.close()
