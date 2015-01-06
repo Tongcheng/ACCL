@@ -31,7 +31,7 @@ file_OUTPUT="file_out.html"
 ##have a lot of side effects, but return nothing
 def urlAddition(cur_set,pot_set,dict0,url0):
     #test
-    print 'adding url'+`url0`
+    #print 'adding url'+`url0`
     #convert unicode to string(ascii)
     phrase0=url0.encode('ascii','ignore')
     pot_set.add(phrase0)
@@ -159,10 +159,10 @@ if __name__=="__main__":
         #for each word
         for w1 in wordList:
             #if the word not yet in the dictionary, add this key
-            if dict_index.get(w1)==None:
-                dict_index[w1]=[]
-        #append the phrase to the value of words anyway
-        dict_index[w1].append(ph)
+            if dict_index.get(w1.lower())==None:
+                dict_index[w1.lower()]=[]
+            #append the phrase to the value of words anyway
+            dict_index[w1.lower()].append(ph)
     #writing preparation
     file_out=open(file_OUTPUT,'w')
     file_out.write("<html>")
@@ -173,13 +173,13 @@ if __name__=="__main__":
         #for each word in sentence
         for w1 in wordList:
             #if the word is in index dictionary get all the corresponding phrases
-            if not dict_index.get(w1) ==None:
-                phList=dict_index[w1]
+            if not dict_index.get(w1.lower()) ==None:
+                phList=dict_index[w1.lower()]
                 flag=False
                 for ph in phList:
                     if ph.lower() in s.lower():
                         flag=True
-                if flag:
+                if flag and (not w1.lower() in bannedDict):
                     write_red(file_out,w1)
                     file_out.write(' ')
                 else:
@@ -190,6 +190,6 @@ if __name__=="__main__":
                 file_out.write(w1)
                 file_out.write(' ')
         file_out.write("</p>")
-    
+    print 'index dictionary is '+`dict_index`
     file_out.write("</html>")
     file_out.close()
