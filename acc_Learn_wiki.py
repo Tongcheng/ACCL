@@ -114,31 +114,34 @@ if __name__=="__main__":
         except:
             pass
     #get a list of sentence
-    dict_WP=clean_dict(dict_WP,5)
+    print "initial size is"+`len(dict_WP)`
+    #dict_WP=clean_dict(dict_WP,5)
     sentList=tokenize.sent_tokenize(data1)
     #main part
     #first loop
-    asd=0#test
+    #asd=0#test
     for s in sentList:
         wordListAlpha=nltk.word_tokenize(s)
         #a list of pair of (word,type)
         typePairList=nltk.pos_tag(wordListAlpha)
         for pair in typePairList:
-            print 'asd='+`asd`
-            asd=asd+1
-            print pair[0]
-            print 'dict0 len is '+`len(dict_WP)`
+            #print 'asd='+`asd`
+            #asd=asd+1
+            #print pair[0]
+            #print 'dict0 len is '+`len(dict_WP)`
             if determineWord(pair[1]):
                 #see if the dict_WP(dict0) has this word
                 if not dict_WP.get(pair[0])==None:
                     #elevate each related phrase
                     for phraseAlpha in dict_WP.get(pair[0]):
-                        phraseElevation(current_set,potential_set,dict_WP,phraseAlpha)
-                        dict_WP=clean_dict(dict_WP,5)
+                        #conditional constraint: elevate a phrase if it is a substring of the sentence
+                        if (phraseAlpha.lower() in s.lower()) and (phraseAlpha not in current_set):
+                            phraseElevation(current_set,potential_set,dict_WP,phraseAlpha)
+                            #dict_WP=clean_dict(dict_WP,5)
     
     print 'cur_set is '+`current_set`
-    print 'pot_set is '+`potential_set`
-    print 'dict0 is '+dict0
+    print 'pot_set length is '+`len(potential_set)`
+    #print 'dict0 is '+`dict_WP`
     #second loop
     
     
