@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 #!/usr/bin/env python
 import wikipedia
 import nltk
@@ -29,6 +30,8 @@ file_OUTPUT="file_out.html"
 ##url0 is a url, which in our format is unicode
 ##have a lot of side effects, but return nothing
 def urlAddition(cur_set,pot_set,dict0,url0):
+    #test
+    print 'adding url'+`url0`
     #convert unicode to string(ascii)
     phrase0=url0.encode('ascii','ignore')
     pot_set.add(phrase0)
@@ -44,6 +47,8 @@ def urlAddition(cur_set,pot_set,dict0,url0):
     return
 #elevate phrase0, add all the related url using urlAddition
 def phraseElevation(cur_set,pot_set,dict0,phrase0):
+    #test
+    print 'trying to elevate phrase'+`phrase0`
     if phrase0 in pot_set:
         cur_set.add(phrase0)
         wordList0=nltk.word_tokenize(phrase0)
@@ -109,7 +114,7 @@ if __name__=="__main__":
         except:
             pass
     #get a list of sentence
-    dict_WP=clean_dict(dict_WP,2)
+    dict_WP=clean_dict(dict_WP,5)
     sentList=tokenize.sent_tokenize(data1)
     #main part
     #first loop
@@ -119,22 +124,21 @@ if __name__=="__main__":
         #a list of pair of (word,type)
         typePairList=nltk.pos_tag(wordListAlpha)
         for pair in typePairList:
-            print "asd="+`asd`
+            print 'asd='+`asd`
             asd=asd+1
-            print len(potential_set)
             print pair[0]
-            print dict_WP
+            print 'dict0 len is '+`len(dict_WP)`
             if determineWord(pair[1]):
                 #see if the dict_WP(dict0) has this word
                 if not dict_WP.get(pair[0])==None:
                     #elevate each related phrase
                     for phraseAlpha in dict_WP.get(pair[0]):
                         phraseElevation(current_set,potential_set,dict_WP,phraseAlpha)
-                        dict_WP=clean_dict(dict_WP,2)
+                        dict_WP=clean_dict(dict_WP,5)
     
-    print "cur_set is "+`current_set`
-    print "pot_set is "+`potential_set`
-    print "dict0 is "+dict0
+    print 'cur_set is '+`current_set`
+    print 'pot_set is '+`potential_set`
+    print 'dict0 is '+dict0
     #second loop
     
     
