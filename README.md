@@ -2,7 +2,7 @@ ACCL
 ====
 Phase 1: Simply use python nltk to find the similarity between words for highlighting. 
 
-Phase 2: Use Wikipedia based, nltk assisted similarity look up mechanism for highlighting keywords.
+Phase 2: <b>Use Wikipedia based, nltk assisted similarity && look up mechanism for highlighting keywords.</b>
 
 Functionality: Accelerate read speed by converting input text to html page with keywords highlighted.
 
