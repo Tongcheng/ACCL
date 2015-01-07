@@ -10,7 +10,9 @@ Why using it: This tool will help you to better skim through a long article/pape
 
 How to use it:
 
-  In Phase 2: First, currently with not perfect UI, clone this repository, have Python 2.7, 
+  In Phase 2: 
+              
+              First, currently with not perfect UI, clone this repository, have Python 2.7, 
   
               download nltk (www.nltk.org) and wikipedia (https://github.com/goldsmith/Wikipedia) module,
               
@@ -24,11 +26,11 @@ How to use it:
 
 Demo:
 
-  Get the oxygen page on wikipedia and put its first 3 paragraphs in my file_in.txt.
+              Get the oxygen page on wikipedia and put its first 3 paragraphs in my file_in.txt.
   
-  Then put word "oxygen" in my file_env,
+              Then put word "oxygen" in my file_env,
   
-  Then my keyword highlighting mechanism think the phrases ["Chemical element","ozone layer","Earth's crust","Ultraviolet radiation","Cellular respiration","oxygen","periodic table","Great oxygenation event","Billion years","Earth's atmosphere","Electrolysis of water","Atomic number","Fractional distillation","Life on Earth","Earth","Life Support System","Billion years ago","Low earth orbit"]
+              Then my keyword highlighting mechanism think the phrases ["Chemical element","ozone layer","Earth's crust","Ultraviolet radiation","Cellular respiration","oxygen","periodic table","Great oxygenation event","Billion years","Earth's atmosphere","Electrolysis of water","Atomic number","Fractional distillation","Life on Earth","Earth","Life Support System","Billion years ago","Low earth orbit"]
   
   Then render html with those words highlighted red!
   
