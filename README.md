@@ -6,7 +6,7 @@ Phase 2: Use Wikipedia based, nltk assisted similarity look up mechanism for hig
 
 Functionality: Accelerate read speed by converting input text to html page with keywords highlighted.
 
-Why using it: This tool will help you to better skim through a long article/paper/essay using automatic keyword highlighting mechanisms.
+Why using it: <b>This tool will help you to better skim through a long article/paper/essay using automatic keyword highlighting mechanisms.</b>
 
 How to use it:
 
@@ -32,7 +32,7 @@ Demo:
   
               Then my keyword highlighting mechanism think the phrases ["Chemical element","ozone layer","Earth's crust","Ultraviolet radiation","Cellular respiration","oxygen","periodic table","Great oxygenation event","Billion years","Earth's atmosphere","Electrolysis of water","Atomic number","Fractional distillation","Life on Earth","Earth","Life Support System","Billion years ago","Low earth orbit"]
   
-  Then render html with those words highlighted red!
+              Then render html with those words highlighted red!
   
 Current Constraints and further TODOs:
 
