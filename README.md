@@ -11,10 +11,15 @@ Why using it: This tool will help you to better skim through a long article/pape
 How to use it:
 
   In Phase 2: First, currently with not perfect UI, clone this repository, have Python 2.7, 
+  
               download nltk (www.nltk.org) and wikipedia (https://github.com/goldsmith/Wikipedia) module,
+              
               Then substitute file_env to the keywords you know are key words a before reading. (1 line style)
+              
               Then substitute file_in to the paragraph you want to highlight.
+              
               Then in command line/ terminal, type: python acc_Learn_wiki.py
+              
               Then you can open the output file file_out.html in browser.
 
 Demo:
@@ -28,8 +33,11 @@ Demo:
   Then render html with those words highlighted red!
   
 Current Constraints and further TODOs:
+
 1.Constraint 1:Currently only accept English. For example: greek will break it.
+
 2.Constraint 2 && TODO1 :Bad UI, not that easy to use.
+
 3.TODO2: Change input format from txt to more common formats such as pdf.
   
   
